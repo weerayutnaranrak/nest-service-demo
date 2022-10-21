@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
-// import { ConfigModule } from '../config/config.module';
 import { AuthService } from './auth.service';
 import { HttpStrategy } from './http.strategy';
 
