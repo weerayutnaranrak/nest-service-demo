@@ -24,7 +24,7 @@ services:
       # - REDIS_PASSWORD:fbX4PgCelRue3exBCWFETglpCkrzehiB
 
     ports:
-      - 3000:3001
+      - 3001:3001
     command: yarn run start:dev
   postgres:
     image: postgres
