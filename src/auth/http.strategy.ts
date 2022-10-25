@@ -15,7 +15,7 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
     done: (error: HttpException, value: boolean | string) => any,
   ) {
     try {
-      return await this.authService.validateToken(token);
+      return await this.authService.validateOktaToken(token);
     } catch (error) {
       console.log(error);
       done(error, 'The token is not valid');

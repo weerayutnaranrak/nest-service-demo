@@ -6,7 +6,9 @@ export class ExampleGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log('ExampleGuard');
+    const request = context.switchToHttp().getRequest();
+    request.user = '12345678';
+
     return true;
   }
 }
