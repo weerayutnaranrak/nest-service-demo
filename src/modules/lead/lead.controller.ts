@@ -4,15 +4,16 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { ExampleGuard } from 'src/guards/example.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { LeadService } from './lead.service';
+import { OktaAuthGuard } from 'src/auth/okta-auth.guard';
 
 @Controller('lead')
 export class LeadController {
   constructor(private readonly leadService: LeadService) {}
 
   @Get()
-  @ApiBearerAuth('okta')
-  @UseGuards(AuthGuard('bearer'))
-  // @UseGuards(JwtAuthGuard)
+  // @ApiBearerAuth('okta')
+  // @UseGuards(AuthGuard('bearer'))
+  @UseGuards(OktaAuthGuard)
   findAll(@Request() req) {
     console.log(req.user);
     return 'test';
