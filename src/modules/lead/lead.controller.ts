@@ -14,10 +14,10 @@ export class LeadController {
   @Get()
   // @ApiBearerAuth('okta')
   // @UseGuards(AuthGuard('bearer'))
-  @UseGuards(JwtOktaAuthGuard)
+  // @UseGuards(JwtOktaAuthGuard)
   findAll(@Request() req) {
     console.log(req.user);
-    return 'test';
+    // return 'test';
     return this.leadService.findAll();
   }
 }
