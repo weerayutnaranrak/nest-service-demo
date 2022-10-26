@@ -5,6 +5,7 @@ import { ExampleGuard } from 'src/guards/example.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { LeadService } from './lead.service';
 import { OktaAuthGuard } from 'src/auth/okta-auth.guard';
+import { JwtOktaAuthGuard } from 'src/auth/jwt-okta-auth.guard';
 
 @Controller('lead')
 export class LeadController {
@@ -13,7 +14,7 @@ export class LeadController {
   @Get()
   // @ApiBearerAuth('okta')
   // @UseGuards(AuthGuard('bearer'))
-  @UseGuards(OktaAuthGuard)
+  @UseGuards(JwtOktaAuthGuard)
   findAll(@Request() req) {
     console.log(req.user);
     return 'test';

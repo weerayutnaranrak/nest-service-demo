@@ -2,7 +2,7 @@ import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as OktaJwtVerifier from '@okta/jwt-verifier';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+// import * as bcrypt from 'bcrypt';
 import { USERS } from 'src/constants/users';
 
 @Injectable()
@@ -20,6 +20,11 @@ export class AuthService {
 
   async validateOktaToken(token: string): Promise<any> {
     const jwt = await this.oktaVerifier.verifyAccessToken(token, this.audience);
+    return jwt;
+  }
+
+  async validateJwtToken(token: string): Promise<any> {
+    const jwt = this.jwtService.verify(token);
     return jwt;
   }
 
@@ -41,5 +46,22 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  getToken(request: { headers: Record<string, string | string[]> }): string {
+    const authorization = request.headers['authorization'];
+    if (!authorization || Array.isArray(authorization)) {
+      throw new Error('Invalid Authorization Header');
+    }
+    const token = authorization.split(' ');
+    return token[1];
+  }
+
+  getAuthType(request: { headers: Record<string, string | string[]> }): string {
+    const authType = request.headers['auth-type'];
+    if (!authType) {
+      throw new Error('Invalid Authorization Type Header');
+    }
+    return authType.toString();
   }
 }
